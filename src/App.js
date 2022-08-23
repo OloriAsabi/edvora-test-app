@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter,Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Layout }from "./components";
+import { Orders, Products } from "./pages";
+import { getOrders, getProducts } from "./api/api";
+
+import "./App.css"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [expanded, setExpanded] = useState(false);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+
+    setIsLoading(true)
+    getProducts()
+    .then((data) => {
+      const items = data.data
+      setProducts(expanded ? items : items.slice(0, 20));
+      // console.log(data);
+    });
+    getOrders()
+    .then((data) => {
+      const items = data.data
+      setOrders(expanded ? items : items.slice(0, 20));
+      // console.log(data);
+    })
+    setIsLoading(false);
+  }, [expanded])
+
+return (
+  <BrowserRouter>
+  <Layout> 
+    <div className="text-black bg-white h-screen dark:bg-black dark:text-white">
+    <Routes>
+    <Route exact path="/" 
+    element={
+    <Products
+     isLoading={isLoading} 
+     setExpanded={setExpanded} 
+     expanded={expanded} 
+     products={products} 
+     />} 
+     />
+     <Route path="/orders"
+    element={
+    <Orders
+    orders={orders}
+    isLoading={isLoading}
+    setExpanded={setExpanded} 
+    expanded={expanded} 
+    />} 
+    />
+    </Routes>
     </div>
-  );
+    </Layout>
+  </BrowserRouter>
+);
 }
 
 export default App;
