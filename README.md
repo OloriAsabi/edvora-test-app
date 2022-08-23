@@ -2,7 +2,7 @@ Edvora Interview Test App
 ![IMG-3755](https://raw.githubusercontent.com/OloriAsabi/book-images/main/src/edvora.png)
 ### Hi there, I'm Asabi
 
-[website](https://edvora-test-app.netlify.app/)
+[website](https://edvora-test-oloriasabi.vercel.app/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/olorii_ashabi?color=1DA1F2&logo=twitter&style=for-the-badge)]
 
 ## I'm a Developer and DJ!!
